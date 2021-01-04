@@ -35,6 +35,7 @@ public class MessageReaderMonitor implements Thread.UncaughtExceptionHandler {
     }
 
     public void stopReader() {
+        System.out.println("MessageReaderMonitor: stopping MessageReader");
         running.set(false);
     }
 

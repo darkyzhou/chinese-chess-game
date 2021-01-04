@@ -25,11 +25,7 @@ public class PlayerInfoPanel extends JPanel {
         this.game = game;
         this.player = player;
         this.playerFigureImage = ImageResources.getImage("figure/" + player.getFigureName());
-        String nameText = String.format("玩家：%s", player.getName());
-        if (player.equals(game.getLocalPlayer())) {
-            nameText += "（你）";
-        }
-        this.playerNameText = nameText;
+        this.playerNameText = player.getName() + (player.equals(game.getLocalPlayer()) ? "（你）" : "");
 
         Font defaultFont = UIManager.getFont("Label.font");
         Map<TextAttribute, Object> attributes = new HashMap<>();

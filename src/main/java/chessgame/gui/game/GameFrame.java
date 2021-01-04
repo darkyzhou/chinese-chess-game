@@ -29,7 +29,7 @@ public class GameFrame extends BaseFrame {
         add(gameInfoPanel);
 
         game.getGameConnection().getEventBus().registerEventListener(PlayerRequestRetractionEvent.class, e -> EventQueue.invokeLater(() -> onRemotePlayerRequestRetraction(e)));
-        game.getGuiEventBus().registerEventListener(ShutdownGuiEvent.class, (e) -> EventQueue.invokeLater(this::onShutdownGuiEvent));
+        game.getGuiEventBus().registerEventListener(ShutdownGuiEvent.class, this::onShutdownGuiEvent);
     }
 
     private void onRemotePlayerRequestRetraction(PlayerRequestRetractionEvent event) {
@@ -37,9 +37,9 @@ public class GameFrame extends BaseFrame {
         game.getGameEventBus().broadcastEvent(new PlayerReplyRetractionEvent(game.getLocalPlayer(), option == JOptionPane.YES_OPTION));
     }
 
-    private void onShutdownGuiEvent() {
+    private void onShutdownGuiEvent(ShutdownGuiEvent event) {
         System.out.println("GameFrame: shutting down current frame and showing startup frame");
-        setVisible(false);
+        EventQueue.invokeLater(() -> setVisible(false));
         new StartupFrame().showFrame();
     }
 }
